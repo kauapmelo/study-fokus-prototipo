@@ -1,0 +1,414 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BODY */
+body {
+    background-color: #f5f7fb;
+    color: #1f2937;
+}
+
+/* CABEÇALHO */
+.header {
+    padding: 14px 20px;
+    /* compacto, mas não muito apertado */
+    color: #fff;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* centraliza logo e textos */
+    gap: 8px;
+    /* espaçamento equilibrado */
+    background: linear-gradient(135deg, #2879fa, #1e40af);
+    /* azul gradiente */
+}
+
+/* CORES DO CABEÇALHO (MESMAS DO STUDY.CSS) */
+.header.Verde {
+    background: linear-gradient(135deg, #0bed47, #0bed47);
+}
+
+.header.Azul {
+    background: linear-gradient(135deg, #2879fa, #2879fa);
+}
+
+.header.Rosa {
+    background: linear-gradient(135deg, #eb4297, #eb4297);
+}
+
+.header.Ciano {
+    background: linear-gradient(135deg, #06b6d4, #06b6d4);
+}
+
+.header.Laranja {
+    background: linear-gradient(135deg, #f97316, #f97316);
+}
+
+.header.Roxo {
+    background: linear-gradient(135deg, #8b5cf6, #8b5cf6);
+}
+
+/* BOTÃO VOLTAR */
+.voltar {
+    align-self: flex-start;
+    /* mantém no canto esquerdo */
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    /* maior, mais visível */
+    font-weight: 500;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+}
+
+.voltar:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+/* TÍTULO */
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.logo {
+    width: 70px;
+    /* um pouco maior */
+    height: auto;
+    margin-bottom: 6px;
+}
+
+
+/* Título */
+.titulo h1 {
+    font-size: 24px;
+    /* mantém compacto, mas elegante */
+    font-weight: 600;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+    /* dá um toque mais moderno */
+}
+
+/* Descrição */
+.titulo p {
+    font-size: 13px;
+    opacity: 0.9;
+    margin: 0;
+    letter-spacing: 0.3px;
+    /* deixa harmonioso com o título */
+    text-align: center;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    /* sem negativo */
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* CARD */
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* CARD HEADER */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    gap: 12px;
+}
+
+.card-header h2 {
+    font-size: 18px;
+}
+
+.card-header span {
+    font-size: 14px;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+/* PROGRESSO */
+.progresso {
+    width: 100%;
+    height: 6px;
+    background-color: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.progresso div {
+    width: 0%;
+    height: 100%;
+    background-color: #2563eb;
+    transition: width 0.2s ease;
+}
+
+/* ADICIONAR ASSUNTO */
+.addAssunto {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.addAssunto input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    outline: none;
+}
+
+.addAssunto input:focus {
+    border-color: #2563eb;
+}
+
+.botaoAssunto {
+    width: 44px;
+    border-radius: 12px;
+    border: none;
+    background-color: #2563eb;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.botaoAssunto:hover {
+    background-color: #1e40af;
+    transform: scale(1.05);
+}
+
+/* LISTA */
+.lista {
+    list-style: none;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+.item:hover {
+    background-color: #f1f5f9;
+}
+
+.item span {
+    font-size: 15px;
+}
+
+/* CRONÔMETRO */
+.timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+/* Facilita mudar cor via JS/tema */
+:root {
+    --tema-1: #2563eb;
+    --tema-2: #1e40af;
+}
+
+.circulo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--tema-1), var(--tema-2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.circulo h1 {
+    font-size: 36px;
+}
+
+.circulo p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* AÇÕES */
+.acoes {
+    display: flex;
+    gap: 14px;
+}
+
+.acoes button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--tema-1);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.acoes button:hover {
+    background-color: var(--tema-2);
+    transform: scale(1.08);
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card-header span {
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.85;
+}
+
+.card-header span:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+
+.fokus {
+    /* cor do fokus */
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #ffffff;
+    text-shadow: -2px -2px 5px #ffffff;
+
+}
+
+/* =========================
+   MODAL DEFINIR TEMPO
+   ========================= */
+.tempoOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 16px;
+}
+
+.tempoOverlay.ativo {
+    display: flex;
+}
+
+.tempoModal {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    transform: translateY(8px);
+    opacity: 0;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.tempoOverlay.ativo .tempoModal {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.tempoModalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tempoModalHeader h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.tempoFechar {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.tempoAjuda {
+    margin: 10px 0 12px 0;
+    color: #475569;
+    font-size: 14px;
+}
+
+.tempoInput {
+    width: 100%;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    padding: 0 12px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.tempoInput:focus {
+    border-color: #94a3b8;
+}
+
+.tempoAcoes {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+.tempoBtn {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tempoCancelar {
+    background: #e2e8f0;
+}
+
+.tempoSalvar {
+    background: var(--tema-2, #2563eb);
+    color: #ffffff;
+}
