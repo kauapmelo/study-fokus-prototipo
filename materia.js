@@ -1,17 +1,19 @@
+// responsavel JS: Adriel //
+
 document.addEventListener("DOMContentLoaded", () => {
-  // =========================
-  // TEMA (cor da matéria) + TÍTULO
-  // =========================
+  // TEMA (cor da matéria) + TÍTULO //
   const header = document.querySelector(".header");
   const tituloMateria = document.getElementById("tituloMateria");
 
   const materiaAtual = localStorage.getItem("materiaSelecionada") || "Padrao";
   if (tituloMateria) tituloMateria.textContent = materiaAtual;
 
-  // Cor salva quando você cria a matéria (ex.: "Azul", "Verde"...)
+  // Cor salva quando você cria a matéria //
   const corMateriaRaw = localStorage.getItem("corMateria") || "Azul";
   const corMateria =
     corMateriaRaw.charAt(0).toUpperCase() + corMateriaRaw.slice(1).toLowerCase();
+
+  //Cores usadas na 2º página(dentro da matéria)//
 
   const tema = {
     Azul: { c1: "#ffffff", c2: "#1e40af" },
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const t = tema[corMateria] || tema.Azul;
 
-  // Header com classe (seu CSS já tem .header.Azul etc.)
+  // Header com classe //
   if (header) {
     header.classList.remove(
       "Azul", "Verde", "Roxo", "Laranja", "Rosa", "Ciano",
@@ -33,27 +35,33 @@ document.addEventListener("DOMContentLoaded", () => {
     header.classList.add(corMateria);
   }
 
-  // Variáveis CSS para colorir cronômetro e botões
+  // Variáveis CSS para colorir cronômetro e botões //
   document.documentElement.style.setProperty("--tema-1", t.c1);
   document.documentElement.style.setProperty("--tema-2", t.c2);
 
-  // =========================
-  // CHECKLIST (To-do)
-  // =========================
+  // CHECKLIST // 
   const progressoFill = document.querySelector(".progresso > div");
-  if (progressoFill) progressoFill.style.backgroundColor = t.c2;
+  if (progressoFill) progressoFill.style.backgroundColor = t.c2
+  ;
+  // Definindo as const
 
   const inputAssunto = document.querySelector(".addAssunto input");
   const btnAdd = document.querySelector(".botaoAssunto");
   const lista = document.querySelector(".lista");
-  const contador = document.querySelector(".card .card-header span"); // primeiro card
+  const contador = document.querySelector(".card .card-header span"); 
+
+  //Cor do btnAdd
 
   if (btnAdd) btnAdd.style.backgroundColor = t.c2;
+  
+  //Obter itens da lista do valor que o usuário digitou//
 
   function obterItens() {
     if (!lista) return [];
     return Array.from(lista.querySelectorAll(".item"));
   }
+
+  //atualiza o checklist baseado nos itens,total de itens e concluídos//
 
   function atualizarChecklistUI() {
     const itens = obterItens();
@@ -68,10 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const pct = total === 0 ? 0 : Math.round((concluidos / total) * 100);
     if (progressoFill) progressoFill.style.width = `${pct}%`;
   }
-
+// Liga 
   function ligarEventosItem(li) {
     const checkbox = li.querySelector('input[type="checkbox"]');
     if (!checkbox) return;
+
+    //Exibição quando ele estiver marcado ou desmarcado//
 
     checkbox.addEventListener("change", () => {
       li.style.opacity = checkbox.checked ? "0.7" : "1";
@@ -80,8 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Ligar nos itens que já existem no HTML
+  // Ligar nos itens que já existem no HTML //
+
   obterItens().forEach(ligarEventosItem);
+
+  // Cria item //
 
   function criarItem(texto) {
     const li = document.createElement("li");
@@ -105,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       atualizarChecklistUI();
     });
   }
+  //Adiciona assunto usando enter e o botão add//
 
   if (inputAssunto) {
     inputAssunto.addEventListener("keydown", (e) => {
@@ -114,29 +128,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   atualizarChecklistUI();
 
-  // =========================
-  // CRONÔMETRO + TEMPO POR MATÉRIA
-  // =========================
+  // CRONÔMETRO + TEMPO POR MATÉRIA // 
   const timeDisplay = document.querySelector(".time");
   const statusDisplay = document.querySelector(".status");
   const btnPlay = document.querySelector(".acoes button:nth-child(1)");
   const btnReset = document.querySelector(".acoes button:nth-child(2)");
 
   // pinta botões de ação
+
   document.querySelectorAll(".acoes button").forEach((b) => (b.style.backgroundColor = t.c2));
 
   // chave do tempo por matéria
+
   const CHAVE_TEMPO = `timer:${materiaAtual}`;
 
-  // tenta carregar tempo salvo (em segundos)
+  // tenta carregar tempo salvo 
+
   const salvo = parseInt(localStorage.getItem(CHAVE_TEMPO), 10);
+
+  //Definindo variáveis do cronômetro//
 
   let tempoTotal = Number.isFinite(salvo) && salvo > 0 ? salvo : 25 * 60;
   let tempoAtual = tempoTotal;
   let intervalo = null;
   let rodando = false;
 
-  // ========= HH:MM:SS =========
+  // HH:MM:SS //
+
   function formatarTempo(segundos) {
     const h = Math.floor(segundos / 3600);
     const m = Math.floor((segundos % 3600) / 60);
@@ -154,12 +172,16 @@ document.addEventListener("DOMContentLoaded", () => {
     statusDisplay.textContent = texto;
   }
 
+  //Para o tempo do cronômetro
+
   function parar() {
     clearInterval(intervalo);
     intervalo = null;
     rodando = false;
     if (btnPlay) btnPlay.textContent = "▶";
   }
+
+  //Inicia o cronômetro//
 
   function iniciar() {
     if (rodando) return;
@@ -179,11 +201,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
+  //Pausa o cronômetro//
+
   function pausar() {
     if (!rodando) return;
     parar();
     setStatus("Pausado");
   }
+
+  //Condição para rodar ou para o cronômetro//
 
   if (btnPlay) {
     btnPlay.addEventListener("click", () => {
@@ -191,6 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
       else pausar();
     });
   }
+
+  //Reseta o cronômetro//
 
   if (btnReset) {
     btnReset.addEventListener("click", () => {
@@ -201,9 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =========================
-  // MODAL "DEFINIR TEMPO" (MÁSCARA AUTOMÁTICA)
-  // =========================
+  // MODAL "DEFINIR TEMPO" (MÁSCARA AUTOMÁTICA) // 
   const btnDefinirTempo = document.getElementById("definirTempo");
   const tempoOverlay = document.getElementById("tempoOverlay");
   const tempoFechar = document.getElementById("tempoFechar");
@@ -211,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tempoSalvar = document.getElementById("tempoSalvar");
   const tempoInput = document.getElementById("tempoInput");
 
-  // ======== MÁSCARA: usuário digita SÓ NÚMEROS e aparece HH:MM:SS ========
+  // MÁSCARA: usuário digita SÓ NÚMEROS e aparece HH:MM:SS //
   function somenteDigitos(str) {
     return String(str).replace(/\D/g, "");
   }
@@ -251,10 +277,10 @@ document.addEventListener("DOMContentLoaded", () => {
     tempoOverlay.classList.add("ativo");
     tempoOverlay.setAttribute("aria-hidden", "false");
 
-    // preenche com o tempo atual (HH:MM:SS)
+    // preenche com o tempo atual 
     tempoInput.value = formatarTempo(tempoTotal);
 
-    // cursor no final (melhor para máscara)
+    // cursor no final 
     tempoInput.focus();
     const len = tempoInput.value.length;
     tempoInput.setSelectionRange(len, len);
@@ -269,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnDefinirTempo) {
     btnDefinirTempo.addEventListener("click", abrirModalTempo);
 
-    // opcional: teclado (Enter ou Espaço abre)
+    // teclado 
     btnDefinirTempo.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") abrirModalTempo();
     });
@@ -299,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const digitos = somenteDigitos(tempoInput.value);
       tempoInput.value = formatarHHMMSSDeDigitos(digitos);
 
-      // mantém cursor no final
+      // mantém cursor 
       const len = tempoInput.value.length;
       tempoInput.setSelectionRange(len, len);
     });
@@ -326,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tempoTotal = totalSegundos;
       tempoAtual = totalSegundos;
 
-      // salva por matéria (em segundos)
+      // salva por matéria 
       localStorage.setItem(CHAVE_TEMPO, String(totalSegundos));
 
       renderTempo();

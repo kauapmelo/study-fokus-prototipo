@@ -1,14 +1,15 @@
+// responsavel JS: Adriel //
 const splash = document.getElementById("splash");
 
-// tempo total da splash (ms)
+// TEMPO TOTAL //
 const TEMPO_SPLASH = 2500;
 
-// inicia fade-out antes de sair
+// FADE-OUT //
 setTimeout(() => {
   splash.classList.add("fade-out");
 }, TEMPO_SPLASH - 800);
 
-// redireciona após animação
+// REDIRECIONAMENTO //
 setTimeout(() => {
   window.location.href = "home.html";
 }, TEMPO_SPLASH);

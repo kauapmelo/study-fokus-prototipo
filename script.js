@@ -1,4 +1,5 @@
-const abrirModal = document.getElementById("abrirModal");
+// responsavel JS: Adriel //
+ abrirModal = document.getElementById("abrirModal");
 const fecharModal = document.getElementById("fecharModal");
 const modal = document.getElementById("modal");
 const inputMateria = document.getElementById("inputMateria");
@@ -8,31 +9,28 @@ const cardsContainer = document.querySelector(".cards");
 let corEscolhida = "";
 const botoesCor = document.querySelectorAll(".cor");
 
-// =========================
-// LOCAL STORAGE
-// =========================
+// LOCAL STORAGE // 
 const STORAGE_KEY = "materias";
 
+// Carrega materia //
 function carregarMaterias() {
     const materias = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     materias.forEach(m => criarCard(m.nome, m.cor, false));
 }
-
+// Salva a materia //
 function salvarMateria(nome, cor) {
     const materias = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     materias.push({ nome, cor });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(materias));
 }
-
+// Remove a materia //
 function removerMateria(nome) {
     let materias = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     materias = materias.filter(m => m.nome !== nome);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(materias));
 }
 
-// =========================
-// CORES
-// =========================
+// CORES // 
 botoesCor.forEach(botao => {
     botao.addEventListener("click", () => {
         corEscolhida = botao.classList[1];
@@ -41,9 +39,7 @@ botoesCor.forEach(botao => {
     });
 });
 
-// =========================
-// CRIAR CARD
-// =========================
+// CRIAR CARD // 
 function criarCard(nome, cor, salvar = true) {
     const novoCard = document.createElement("div");
     novoCard.classList.add("card", cor);
@@ -52,7 +48,7 @@ function criarCard(nome, cor, salvar = true) {
         <img class="excluirCard" src="imagens/lixo-icon.png" alt="Excluir">
         <h3 class="cardtitulo">${nome}</h3>
     `;
-
+    // Adiciona novo card //
     novoCard.addEventListener("click", () => {
         localStorage.setItem("materiaSelecionada", nome);
         window.location.href = "materia.html";
@@ -78,16 +74,19 @@ function criarCard(nome, cor, salvar = true) {
     if (salvar) salvarMateria(nome, cor);
 }
 
-// =========================
-// BOTÃO CRIAR
-// =========================
+// BOTÃO CRIAR // 
 btnCriar.addEventListener("click", () => {
     const nome = inputMateria.value.trim();
+
+    //Verificação de Escrita//
 
     if (nome === "") {
         alert("Escreva algo!");
         return;
     }
+
+    //Verificação de cor//
+
     if (!corEscolhida) {
         alert("Escolha uma cor!");
         return;
@@ -100,24 +99,22 @@ btnCriar.addEventListener("click", () => {
     botoesCor.forEach(b => b.classList.remove("ativo"));
 });
 
-// =========================
-// MODAL
-// =========================
+// MODAL // 
 abrirModal.addEventListener("click", () => {
     modal.style.display = "flex";
 });
-
+// Fecha o modal //
 fecharModal.addEventListener("click", () => {
     modal.style.display = "none";
 });
+
+//Click fora do modal = modal display none//
 
 modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.style.display = "none";
 });
 
-// =========================
-// BOTÃO ATIVO
-// =========================
+// BOTÃO ATIVO // 
 inputMateria.addEventListener("input", () => {
     if (inputMateria.value.trim() !== "") {
         btnCriar.classList.add("ativo");
@@ -128,7 +125,5 @@ inputMateria.addEventListener("input", () => {
     }
 });
 
-// =========================
-// INICIALIZAÇÃO
-// =========================
+// INICIALIZAÇÃO // 
 carregarMaterias();
